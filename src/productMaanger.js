@@ -9,9 +9,16 @@ class ProductManager {
   }
 
   //Declaro addProduct
-  async addProduct(title, descripction, price, thumbnail, code, stock) {
+  async addProduct(addedProduct) {
     //Valido los campos requeridos
-    if (!stock || !code || !thumbnail || !price || !descripction || !title) {
+    if (
+      !addedProduct.stock ||
+      !addedProduct.code ||
+      !addedProduct.thumbnail ||
+      !addedProduct.price ||
+      !addedProduct.descripction ||
+      !addedProduct.title
+    ) {
       console.log(
         "Se requieren todos los datos para poder ingresar un producto nuevo!"
       );
@@ -20,7 +27,7 @@ class ProductManager {
     //Consigo los productos ya existentes
     const products = await getJSon(this.path);
     //Valido q el producto no este repetido por el code
-    let add = products.find((product) => product.code === code);
+    let add = products.find((product) => product.code === addedProduct.code);
     if (add) {
       console.error(
         "Se intento registrar un Producto con un codigo ya existente!"
@@ -35,17 +42,12 @@ class ProductManager {
       autoId = products[products.length - 1].id + 1;
     }
     //Instancio el producto agregado
-    const addedProduct = {
-      title: title,
-      descirpction: descripction,
-      price: price,
-      thumbnail: thumbnail,
-      code: code,
-      stock: stock,
+    const newProduct = {
       id: autoId,
+      ...addedProduct,
     };
     //Agrego el producto al array
-    products.push(addedProduct);
+    products.push(newProduct);
     //Guardo el archivo
     await saveJson(this.path, products);
   }

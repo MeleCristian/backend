@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "League of legends",
-    "descripcion": "moba",
+    "descripction": "moba",
     "price": 1000,
     "thumbnail": "hdhdhdh",
     "code": 1,
@@ -10,17 +10,17 @@
   },
   {
     "id": 2,
-    "title": "legends of runaterra",
-    "descripcion": "cartas",
+    "title": "LOR",
+    "descripction": "cartas",
     "price": 500,
     "thumbnail": "hdhdhdh",
     "code": 2,
-    "stock": 5
+    "stock": 20
   },
   {
     "id": 3,
     "title": "valorant",
-    "descripcion": "shooter",
+    "descripction": "shooter",
     "price": 850,
     "thumbnail": "hdhdhdh",
     "code": 3,
@@ -29,7 +29,7 @@
   {
     "id": 4,
     "title": "fortnite",
-    "descripcion": "battle royale",
+    "descripction": "battle royale",
     "price": 900,
     "thumbnail": "hdhdhdh",
     "code": 4,
@@ -38,7 +38,7 @@
   {
     "id": 5,
     "title": "apex",
-    "descripcion": "battle royale",
+    "descripction": "battle royale",
     "price": 400,
     "thumbnail": "hdhdhdh",
     "code": 5,
@@ -47,7 +47,7 @@
   {
     "id": 6,
     "title": "minecraft",
-    "descripcion": "survival",
+    "descripction": "survival",
     "price": 300,
     "thumbnail": "hdhdhdh",
     "code": 6,
@@ -56,7 +56,7 @@
   {
     "id": 7,
     "title": "v rising",
-    "descripcion": "survival",
+    "descripction": "survival",
     "price": 350,
     "thumbnail": "hdhdhdh",
     "code": 7,
@@ -65,7 +65,7 @@
   {
     "id": 8,
     "title": "baldurs gate 3",
-    "descripcion": "rpg",
+    "descripction": "rpg",
     "price": 1500,
     "thumbnail": "hdhdhdh",
     "code": 8,
@@ -74,7 +74,7 @@
   {
     "id": 9,
     "title": "diablo 4",
-    "descripcion": "rpg",
+    "descripction": "rpg",
     "price": 600,
     "thumbnail": "hdhdhdh",
     "code": 9,
@@ -83,7 +83,7 @@
   {
     "id": 10,
     "title": "albion online",
-    "descripcion": "mmorpg",
+    "descripction": "mmorpg",
     "price": 200,
     "thumbnail": "hdhdhdh",
     "code": 10,
