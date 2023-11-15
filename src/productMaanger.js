@@ -1,7 +1,7 @@
-const fs = require("fs");
-const { json } = require("stream/consumers");
+import fs from "fs"
 
-class ProductManager {
+
+ class ProductManager {
   //Declaro constructor
   constructor(path) {
     this.products = [];
@@ -131,53 +131,5 @@ const saveJson = async (path, file) => {
   await fs.promises.writeFile(path, fileContent);
 };
 
-//Funcion de testeo
-/* async function testing(){
-    const productsList = new ProductManager("./products.json");
-    console.log("sin productos:", await productsList.getProducts());
-    await productsList.addProduct(
-    "remera",
-    "remera para hombre",
-    1500,
-    "www.hola.com",
-    "1",
-    25
-    );
-    console.log("Primer Producto Agregado:",await productsList.getProducts());
-    await productsList.addProduct(
-    "remera",
-    "remera para hombre",
-    1500,
-    "www.hola.com",
-    "1",
-    25
-    );
-    await productsList.addProduct(
-      "remera",
-      "remera para hombre",
-      1500,
-      "www.hola.com",
-      "2",
-      25
-      );
-    console.log("Producto 2 agregado")
-    console.log("Producto traido por id erroneo (12):");
-    await productsList.getProductById(12);
-    console.log("Producto traido por id existente (1):");
-    await productsList.getProductById(1);
-    console.log("Producto con id inexistente (12) actualizado")
-    await productsList.updateProductById(12,{title:"campera"})
-    console.log("Producto con id 1 actualizado")
-    await productsList.updateProductById(1,{title:"campera"})
-    await productsList.getProductById(1)
-    console.log("Producto eliminado por id erroneo:")
-    productsList.deletProductById(12)
-    await productsList.deletProductById(1)
-    console.log("Producto con id 1 eliminado")
-    console.log("Todos los productos",await productsList.getProducts())
-  
-}
+export default ProductManager
 
-testing()
- */
-exports.productManager = ProductManager;

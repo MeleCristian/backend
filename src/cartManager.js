@@ -1,5 +1,6 @@
-const fs = require("fs");
-const { json } = require("stream/consumers");
+import fs from  "fs"
+
+
 
 class CartManager {
   //Declaro constructor
@@ -95,4 +96,4 @@ const saveJson = async (path, file) => {
   await fs.promises.writeFile(path, fileContent);
 };
 
-exports.cartManager = CartManager;
+export default CartManager

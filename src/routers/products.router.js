@@ -1,8 +1,11 @@
-const { Router } = require("express");
-const PM = require("../productMaanger");
+import { Router } from "express"
+import PM from "../productMaanger.js"
+import { __dirname } from "../utils.js";
+import path from "path"
 
 const router = Router();
-const productList = new PM.productManager("./src/product-list.json");
+const productList = new PM(path.join(__dirname, "/data/product-list.json"));
+
 
 router.get(`/products`, async (req, res) => {
   const { query } = req;
@@ -48,4 +51,4 @@ router.delete("/products/:pid", async (req, res) => {
   res.status(201).json(deletedProduct);
 });
 
-module.exports = router;
+export default router
