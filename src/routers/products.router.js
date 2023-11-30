@@ -2,16 +2,24 @@ import { Router } from "express"
 import PM from "../productMaanger.js"
 import { __dirname } from "../utils.js";
 import path from "path"
+import productsModels from "../models/products.models.js";
 
 const router = Router();
 const productList = new PM(path.join(__dirname, "/data/product-list.json"));
 
 
+router.get(`/`, async (req, res) => {
+  //let products=await productList.getProducts()
+  let products= await productsModels.find({})
+  res.render('home',{title: "Video Games",products})
+
+});
+
 router.get(`/products`, async (req, res) => {
   const { query } = req;
   const { limit } = query;
 
-  let products = await productList.getProducts();
+  let products = await productsModels.find({})
   if (!limit) {
     res.status(200).json(products);
     console.log(products);
@@ -22,7 +30,7 @@ router.get(`/products`, async (req, res) => {
 });
 router.get(`/products/:pid`, async (req, res) => {
   const { pid } = req.params;
-  const product = await productList.getProductById(parseInt(id));
+  const product = await productList.getProductById(parseInt(pid));
 
   if (product) {
     res.status(200).json(product);

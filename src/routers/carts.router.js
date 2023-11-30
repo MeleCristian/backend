@@ -8,6 +8,7 @@ const cartManager = new CM  (path.join(__dirname,"/data/carritos.json"));
 
 router.post("/carts", async (req, res) => {
   await cartManager.addCart();
+  res.status(200).json(cartManager.carts)
 });
 router.get("/carts/:cid", async (req, res) => {
   const { cid } = req.params;
