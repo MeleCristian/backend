@@ -7,13 +7,17 @@ class CartManager {
   //Declaro constructor
 
   //Declaro addCart
-  static addCart() {
-    return cartModels.create()
+  static async addCart() {
+    const cart=await cartModels.create({
+
+    })
+   return cart
   }
 
   //Declarao GetProducts by id
   static async getCartById(id) {
-    const cart = await cartModels.findById(id)
+    const cart = await cartModels.find({_id:id})
+    console.log('cart', JSON.stringify(cart))
     if (!cart) {
       throw new Error('Producto no encontrado')
     }
@@ -22,12 +26,12 @@ class CartManager {
 
   //Declaro Update cart by id
   static async updateCartById(cartId, productId) {
-    const addedProduct={id:productId,quantity:1}
-    const cart=await CartManager.getCartById(cartId)
+    const cid= '6567dd25851c36b9f9b9f5d3'
+    const cart=await cartModels.findOne({_id:cartId})
     
-    const updatedCart=cart.products.map(product=>product.toJSON())
-    updatedCart.push(addedProduct)
-    await cartModels.updateOne({_id:cartId},{$set:updatedCart})
+    cart.products.push({product:cid})
+    console.log(cart)
+    await cartModels.updateOne({_id:cartId},cart)
 
   }
 }

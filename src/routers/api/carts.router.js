@@ -7,8 +7,8 @@ const router = Router();
 
 
 router.post("/carts", async (req, res) => {
-  await cartManager.addCart();
-  res.status(200).json(cartManager.carts)
+  const cart= await CM.addCart();
+  res.status(200).json(cart)
 });
 
 router.get("/carts/:cid", async (req, res) => {
@@ -23,7 +23,7 @@ router.get("/carts/:cid", async (req, res) => {
 router.post("/carts/:cid/product/:pid", async (req, res) => {
   const { cid } = req.params;
   const { pid } = req.params;
-  await CM.updateCartById(cid, pid);
+  await CM.updateCartById(cid,pid);
   res.json(await CM.getCartById(cid));
 });
 
