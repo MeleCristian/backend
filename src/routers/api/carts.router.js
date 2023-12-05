@@ -1,18 +1,19 @@
 import  { Router } from "express"
-import CM from "../cartManager.js"
-import { __dirname } from "../utils.js";
+import CM from "../../cartManager.js"
+import { __dirname } from "../../utils.js";
 import path from "path"
 
 const router = Router();
-const cartManager = new CM  (path.join(__dirname,"/data/carritos.json"));
+
 
 router.post("/carts", async (req, res) => {
   await cartManager.addCart();
   res.status(200).json(cartManager.carts)
 });
+
 router.get("/carts/:cid", async (req, res) => {
   const { cid } = req.params;
-  const cart = await cartManager.getCartById(parseInt(cid));
+  const cart = await CM.getCartById(cid);
   if (cart) {
     res.status(200).json(cart);
   } else {
@@ -22,8 +23,8 @@ router.get("/carts/:cid", async (req, res) => {
 router.post("/carts/:cid/product/:pid", async (req, res) => {
   const { cid } = req.params;
   const { pid } = req.params;
-  await cartManager.updateCartById(parseInt(cid), parseInt(pid));
-  res.json(await cartManager.getCartById(parseInt(cid)));
+  await CM.updateCartById(cid, pid);
+  res.json(await CM.getCartById(cid));
 });
 
 export default router

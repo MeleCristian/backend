@@ -7,6 +7,6 @@ const productsSchema= new moongose.Schema({
     thumbnail: {type:String , require: true},
     code: {type:Number , require: true, unique:true},
     stock: {type:Number , require: true},
-})
+},{timestamps:true})
 
 export default moongose.model('product',productsSchema)

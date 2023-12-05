@@ -2,8 +2,8 @@ import express from "express"
 import path from "path"
 
 import { __dirname } from "./utils.js";
-import productsRouter from "./routers/products.router.js"
-import cartRouter from "./routers/carts.router.js"
+import productsApiRouter from "./routers/api/products.router.js"
+import cartApiRouter from "./routers/api/carts.router.js"
 
 
 import handlebars from "express-handlebars"
@@ -19,12 +19,10 @@ app.engine('handlebars', handlebars.engine() )
 app.set('views',path.join(__dirname,'views') )
 app.set('view engine', 'handlebars')
 
-/* app.get("/", async (req, res) => {
-  res.render('home',{title: "Video Games"})
 
-}); */
 
-app.use("/", productsRouter, cartRouter);
+app.use("/api", productsApiRouter, cartApiRouter);
+
 
 
 export default app

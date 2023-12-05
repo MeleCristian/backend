@@ -1,15 +1,12 @@
 import fs from "fs"
+import productsModels from "./dao/models/products.models.js";
+
 
 
  class ProductManager {
-  //Declaro constructor
-  constructor(path) {
-    this.products = [];
-    this.path = path;
-  }
 
   //Declaro addProduct
-  async addProduct(addedProduct) {
+  static async addProduct(addedProduct) {
     //Valido los campos requeridos
     if (
       !addedProduct.stock ||
@@ -22,102 +19,50 @@ import fs from "fs"
       console.log(
         "Se requieren todos los datos para poder ingresar un producto nuevo!"
       );
+      console.log(addedProduct)
       return;
     }
-    //Consigo los productos ya existentes
-    const products = await getJSon(this.path);
     //Valido q el producto no este repetido por el code
-    let add = products.find((product) => product.code === addedProduct.code);
+    let add = await productsModels.findOne({code: addedProduct.code})
     if (add) {
       console.error(
         "Se intento registrar un Producto con un codigo ya existente!"
       );
       return;
     }
-    //seteo el id
-    var autoId = 0;
-    if (!products.length) {
-      autoId = 1;
-    } else {
-      autoId = products[products.length - 1].id + 1;
-    }
-    //Instancio el producto agregado
-    const newProduct = {
-      id: autoId,
-      ...addedProduct,
-    };
-    //Agrego el producto al array
-    products.push(newProduct);
-    //Guardo el archivo
-    await saveJson(this.path, products);
+    console.log("Producto agregado satisfactoriamente")
+    return productsModels.create(addedProduct)
   }
-  //Delcaro GetProducts
-  getProducts() {
-    return getJSon(this.path);
-  }
-  //Declarao GetProducts by id
-  async getProductById(id) {
-    const products = await getJSon(this.path);
-    let get = products.find((product) => product.id === id);
-    if (get) {
-      return get;
-    } else {
-      console.log("Producto no encontrado");
-    }
-  }
-  //Declaro delet product by id
-  async deletProductById(id) {
-    const products = await getJSon(this.path);
-    var productIndex = -10;
-    products.forEach((element, index) => {
-      if (element.id === id) {
-        productIndex = index;
-      }
-    });
-    if (productIndex === -10) {
-      return console.log("Id no encontrado, no se pudo eliminar proucto");
-    }
-    products.splice(productIndex, 1);
-    await saveJson(this.path, products);
-  }
-  //Declaro Update product by id
-  async updateProductById(id, updatedProduct) {
-    const products = await getJSon(this.path);
-    const { title, description, price, thumbnail, code, stock } =
-      updatedProduct;
-    var productIndex = -10;
-    products.forEach((element, index) => {
-      if (element.id === id) {
-        productIndex = index;
-      }
-    });
-    if (productIndex === -10) {
-      return console.log("Id no encontrado, no se pudo actualizar");
-    }
 
-    if (title) {
-      products[productIndex].title = title;
+  //Delcaro GetProducts
+  static getProducts() {
+    return productsModels.find();
+  }
+
+  //Declarao GetProducts by id
+  static async getProductById(id) {
+    const product = await productsModels.findById(id)
+    if (!product) {
+      throw new Error('Producto no encontrado')
     }
-    if (description) {
-      products[productIndex].description = description;
-    }
-    if (price) {
-      products[productIndex].price = price;
-    }
-    if (thumbnail) {
-      products[productIndex].thumbnail = thumbnail;
-    }
-    if (code) {
-      products[productIndex].code = code;
-    }
-    if (stock) {
-      products[productIndex].stock = stock;
-    }
-    await saveJson(this.path, products);
+    return product
+  }
+
+  //Declaro delet product by id
+  static async deletProductById(id) {
+    await ProductManager.getProductById(id)
+    await productsModels.deleteOne({_id:id})
+    console.log(`Producto Eliminado correctamente:${id} `)
+  }
+
+  //Declaro Update product by id
+  static async updateProductById(id, updatedProduct) {
+    await ProductManager.getProductById(id);
+    await productsModels.updateOne( {_id:id}, {$set:updatedProduct})
+    console.log(`Producto actualizado correctamente:${id} `)
   }
 }
-
-//Declaro getJson
+/* //Declaro getJson
 const getJSon = async (path) => {
   if (!fs.existsSync(path)) {
     return [];
@@ -129,7 +74,7 @@ const getJSon = async (path) => {
 const saveJson = async (path, file) => {
   const fileContent = JSON.stringify(file, null, "\t");
   await fs.promises.writeFile(path, fileContent);
-};
+}; */
 
 export default ProductManager
 
