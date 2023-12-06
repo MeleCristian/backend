@@ -24,7 +24,7 @@ router.post("/carts/:cid/product/:pid", async (req, res) => {
   const { cid } = req.params;
   const { pid } = req.params;
   await CM.updateCartById(cid,pid);
-  res.json(await CM.getCartById(cid));
+  res.status(201).end()
 });
 
 export default router

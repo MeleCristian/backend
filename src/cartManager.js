@@ -26,11 +26,11 @@ class CartManager {
 
   //Declaro Update cart by id
   static async updateCartById(cartId, productId) {
-    const cid= '6567dd25851c36b9f9b9f5d3'
+    
     const cart=await cartModels.findOne({_id:cartId})
     
-    cart.products.push({product:cid})
-    console.log(cart)
+    cart.productsList.push({productList:productId})
+   
     await cartModels.updateOne({_id:cartId},cart)
 
   }
