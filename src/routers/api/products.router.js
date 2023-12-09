@@ -7,16 +7,16 @@ const router = Router();
 
 router.get(`/products`, async (req, res) => {
   const { query } = req;
-  const { limit } = query;
   
-  let products = await PM.getProducts()
-  if (!limit) {
-    res.status(200).json(products);
+  let products = await PM.getProducts(query)
+  
+ /*  console.log(products)
+  if(products.hasPrevPage==true){
+    products.prevLink=`http://localhost:8080/api/products?limit=${products.limit}&page=${products.page-1}`
+  } */
+  res.status(200).json(products);
     
-  } else {
-    const limitedProducts = products.slice(0, limit);
-    res.status(200).json(limitedProducts);
-  }
+  
 });
 
 router.get(`/products/:pid`, async (req, res) => {

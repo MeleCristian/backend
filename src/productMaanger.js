@@ -14,7 +14,9 @@ import productsModels from "./dao/models/products.models.js";
       !addedProduct.thumbnail ||
       !addedProduct.price ||
       !addedProduct.descripction ||
-      !addedProduct.title
+      !addedProduct.title||
+      !addedProduct.category||
+      !addedProduct.status
     ) {
       console.log(
         "Se requieren todos los datos para poder ingresar un producto nuevo!"
@@ -35,8 +37,14 @@ import productsModels from "./dao/models/products.models.js";
   }
 
   //Delcaro GetProducts
-  static getProducts() {
-    return productsModels.find();
+  static getProducts(query) {
+    const{limit:lim=10,sort,page:pag=0, search}=query
+    const criteria={}
+    const options={limit:lim,page:pag}
+
+    if(sort=="asc"||sort=="desc"){options.sort={price:sort}}
+    if(search){criteria.category={category:search}}
+    return productsModels.paginate(criteria,options );    
   }
 
   //Declarao GetProducts by id

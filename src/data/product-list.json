@@ -6,7 +6,9 @@
     "price": 1000,
     "thumbnail": "hdhdhdh",
     "code": 1,
-    "stock": 10
+    "stock": 10,
+    "category":"moba",
+    "status":true
   },
   {
     
@@ -15,7 +17,9 @@
     "price": 500,
     "thumbnail": "hdhdhdh",
     "code": 2,
-    "stock": 20
+    "stock": 20,
+    "category":"tcg",
+    "status":true
   },
   {
     
@@ -24,7 +28,9 @@
     "price": 850,
     "thumbnail": "hdhdhdh",
     "code": 3,
-    "stock": 15
+    "stock": 15,
+    "category":"fps",
+    "status":true
   },
   {
     
@@ -33,7 +39,9 @@
     "price": 900,
     "thumbnail": "hdhdhdh",
     "code": 4,
-    "stock": 20
+    "stock": 20,
+    "category":"br",
+    "status":true
   },
   {
     
@@ -42,7 +50,9 @@
     "price": 400,
     "thumbnail": "hdhdhdh",
     "code": 5,
-    "stock": 7
+    "stock": 7,
+    "category":"br",
+    "status":false
   },
   {
     
@@ -51,7 +61,9 @@
     "price": 300,
     "thumbnail": "hdhdhdh",
     "code": 6,
-    "stock": 25
+    "stock": 25,
+    "category":"survival",
+    "status":false
   },
   {
     
@@ -60,7 +72,9 @@
     "price": 350,
     "thumbnail": "hdhdhdh",
     "code": 7,
-    "stock": 5
+    "stock": 5,
+    "category":"survival",
+    "status":true
   },
   {
     
@@ -69,7 +83,9 @@
     "price": 1500,
     "thumbnail": "hdhdhdh",
     "code": 8,
-    "stock": 30
+    "stock": 30,
+    "category":"rpg",
+    "status":false
   },
   {
     
@@ -78,7 +94,9 @@
     "price": 600,
     "thumbnail": "hdhdhdh",
     "code": 9,
-    "stock": 12
+    "stock": 12,
+    "category":"rpg",
+    "status":false
   },
   {
     
@@ -87,6 +105,8 @@
     "price": 200,
     "thumbnail": "hdhdhdh",
     "code": 10,
-    "stock": 8
+    "stock": 8,
+    "category":"mmorpg",
+    "status":true
   }
 ]
