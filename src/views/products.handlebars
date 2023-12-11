@@ -1,0 +1,31 @@
+<h1>Lista de juegos</h1>
+<article>
+    <table>
+        <tr>
+            <th>title</th>
+            <th>descripction</th>
+            <th>category</th>
+            <th>price</th>
+            <th>stock</th>
+            <th>code</th>
+            <th>agregar</th>
+        </tr>
+        <tbody>
+            {{#each payload}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.descripction}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.stock}}</td>
+                <td>{{this.code}}</td>
+                <td><button type="'button">Agregar</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <p>Pagina actual : {{page}}</p>
+
+    <a href="{{prevLink}}" role="button" {{#unless hasPrevPage}}disabled{{/unless}}>Pagina anterior</a>
+    <a href="{{nextLink}}" role="button" {{#unless hasNextPage}}disabled{{/unless}}>Pagina siguiente</a>
+</article>

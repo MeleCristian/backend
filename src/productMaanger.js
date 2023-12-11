@@ -37,14 +37,46 @@ import productsModels from "./dao/models/products.models.js";
   }
 
   //Delcaro GetProducts
-  static getProducts(query) {
-    const{limit:lim=10,sort,page:pag=0, search}=query
+  static async getProducts(query,API) {
+    const{limit:lim=10,sort,page:pag=1, search}=query
     const criteria={}
     const options={limit:lim,page:pag}
+    let sortLink=''
+    let criteriaLink=''
+    let apiLink=''
+    API? apiLink="api/":apiLink=''
 
-    if(sort=="asc"||sort=="desc"){options.sort={price:sort}}
-    if(search){criteria.category={category:search}}
-    return productsModels.paginate(criteria,options );    
+    if(sort=="asc"||sort=="desc"){
+      options.sort={price:sort}
+      sortLink=`&sort=${sort}`
+    }
+
+    if(search){
+      if(search=="true"||search=="false"){
+        criteria.status=search
+        criteriaLink=`&search=${search}`
+      }else{
+        criteria.category=search
+        criteriaLink=`&search=${search}`
+      }
+    }
+
+    const result= await productsModels.paginate(criteria,options );
+    const paginateResponse ={
+      status:'succes',
+      payload:result.docs.map((e)=>e.toJSON()),
+      totalPages:result.totalPages,
+      prevPage:result.prevPage,
+      nextPage:result.nextPage,
+      page:result.page,
+      hasPrevPage:result.hasPrevPage,
+      hasNextPage:result.hasNextPage,
+      prevLink:result.hasPrevPage? `http://localhost:8080/${apiLink}products?limit=${lim}&page=${result.page-1}${sortLink}${criteriaLink}`:null,
+      nextLink:result.hasNextPage? `http://localhost:8080/${apiLink}products?limit=${lim}&page=${result.page+1}${sortLink}${criteriaLink}`:null,
+
+    }   
+    
+    return paginateResponse
   }
 
   //Declarao GetProducts by id
@@ -60,14 +92,14 @@ import productsModels from "./dao/models/products.models.js";
   static async deletProductById(id) {
     await ProductManager.getProductById(id)
     await productsModels.deleteOne({_id:id})
-    console.log(`Producto Eliminado correctamente:${id} `)
+    //console.log(`Producto Eliminado correctamente:${id} `)
   }
 
   //Declaro Update product by id
   static async updateProductById(id, updatedProduct) {
     await ProductManager.getProductById(id);
     await productsModels.updateOne( {_id:id}, {$set:updatedProduct})
-    console.log(`Producto actualizado correctamente:${id} `)
+    //console.log(`Producto actualizado correctamente:${id} `)
   }
 }
 /* //Declaro getJson

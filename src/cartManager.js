@@ -1,10 +1,7 @@
 import fs from  "fs"
 import cartModels from "./dao/models/cart.models.js";
-import { stringify } from "querystring";
-
 
 class CartManager {
-  //Declaro constructor
 
   //Declaro addCart
   static async addCart() {
@@ -16,8 +13,14 @@ class CartManager {
 
   //Declarao GetProducts by id
   static async getCartById(id) {
-    const cart = await cartModels.find({_id:id})
-    console.log('cart', JSON.stringify(cart))
+    const cart = await cartModels.findOne({_id:id})
+    .populate({
+      path:'productsList',
+      populate:{
+        path:'product'
+      }
+    })
+    console.log('cart', cart.productsList)
     if (!cart) {
       throw new Error('Producto no encontrado')
     }
@@ -25,14 +28,38 @@ class CartManager {
   }
 
   //Declaro Update cart by id
-  static async updateCartById(cartId, productId) {
-    
+  static async updateCartById(cartId, productId, quantity=1) {
+    let aux=true
     const cart=await cartModels.findOne({_id:cartId})
     
-    cart.productsList.push({productList:productId})
-   
+    cart.productsList.forEach(e =>{
+      if(e.product==productId){
+        e.quantity=quantity
+        aux=false  
+      }
+    })
+    
+    if(aux){
+      cart.productsList.push({product:productId, quantity:quantity})
+    }
+    
     await cartModels.updateOne({_id:cartId},cart)
+    return cart
+  }
 
+  static async deletAllProducts(cartId){
+    const cart=await cartModels.findOne({_id:cartId})
+    cart.productsList=[]
+    
+    await cartModels.updateOne({_id:cartId},cart)
+  }
+
+  static async deletproductFromCart(cartId,productId){
+    const cart=await cartModels.findOne({_id:cartId})
+    console.log("cart",cart.productsList)
+    const newCart=cart.productsList.filter((element)=>element.product!=productId)
+    console.log("newcart",newCart)
+    //await cartModels.updateOne({_id:cartId},newCart)
   }
 }
 

@@ -6,8 +6,7 @@ const productItemSchema= new moongose.Schema({
 },{_id:false})
 
 const cartsSchema= new moongose.Schema({
-    productsList:{type:[{productItemSchema,
-        quantity:{type:Number,default:1,require:true}}],default:[]}
+    productsList:{type:[productItemSchema],default:[]}
 },{timestamps:true})
 
 cartsSchema.pre('find',function (){
