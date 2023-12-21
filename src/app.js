@@ -5,7 +5,7 @@ import { __dirname } from "./utils.js";
 import productsApiRouter from "./routers/api/products.router.js"
 import cartApiRouter from "./routers/api/carts.router.js"
 import productsViewsRouter from "./routers/views/products.views.router.js"
-
+import autApiRouter from './routers/api/auth.router.js'
 
 import handlebars from "express-handlebars"
 
@@ -22,7 +22,7 @@ app.set('view engine', 'handlebars')
 
 
 
-app.use("/api", productsApiRouter, cartApiRouter);
+app.use("/api", productsApiRouter, cartApiRouter,autApiRouter);
 app.use("/",productsViewsRouter)
 
 
