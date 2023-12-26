@@ -1,5 +1,5 @@
 import fs from "fs"
-import productsModels from "./dao/models/products.models.js";
+import productsModels from "./models/products.models.js";
 
 
 

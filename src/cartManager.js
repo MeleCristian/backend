@@ -1,5 +1,5 @@
 import fs from  "fs"
-import cartModels from "./dao/models/cart.models.js";
+import cartModels from "./models/cart.models.js";
 
 class CartManager {
 

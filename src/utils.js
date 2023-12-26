@@ -26,7 +26,7 @@ export const createToken=(user)=>{
        
     }
     
-    const token =jwt.sign(payload, JWT_secret, {expiresIn:'60m'})
+    return jwt.sign(payload, JWT_secret, {expiresIn:'60m'})
 }
 
 export const verifyToken=(token)=>{
@@ -38,4 +38,15 @@ export const verifyToken=(token)=>{
             resolve(payload)
         })
     })
+}
+
+export const authPolicies = (roles) => (req, res,  next) => {
+    if (roles.includes('user')) {
+      return next();
+    }
+    const { role } = req.user;
+    if (!roles.includes(role)) {
+      return res.status(403).json({ message: 'No tienes permiso para estar aquí 😨' });
+    }
+    next();
 }
